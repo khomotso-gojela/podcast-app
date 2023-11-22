@@ -31,7 +31,7 @@ export default function Dialog(props) {
 
                     const episodeEle = data.seasons[season].episodes.map((epi,index) => {
                         return (
-                            <Episode title={epi.title} key={index} setFav={props.setFav} />
+                            <Episode title={epi.title} key={index} setFav={() => props.setFav(data)} />
                         )
                     })
 

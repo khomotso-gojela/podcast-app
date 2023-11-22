@@ -3,13 +3,13 @@
 export default function createPrev(props) {
 
     const prev = {
-    
+
         "id": props.id,
         "title": props.title,
         "description": props.description,
-        "seasons": props.seasons,
+        "seasons": props.seasons.length,
         "image": props.image,
-        "genres": props.genres,
+        "genres": '',
         "updated": props.updated
 
     }

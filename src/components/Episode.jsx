@@ -9,9 +9,9 @@ export default function Episode(props) {
             <div>
                 {props.title}
             </div>
-            <div onClick={props.setFav}>
+            <button className="star" onClick={props.setFav}>
                 Star
-            </div>
+            </button>
 
         </div>
     )

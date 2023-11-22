@@ -72,6 +72,10 @@
   flex-direction: column;
 }
 
+.star:hover {
+  cursor: pointer;
+}
+
 .e-container {
   display: grid;
   grid-template-columns: 10% auto 10%;
