@@ -9,7 +9,7 @@ export default function Episode(props) {
             <div>
                 {props.title}
             </div>
-            <div>
+            <div onClick={props.setFav}>
                 Star
             </div>
 

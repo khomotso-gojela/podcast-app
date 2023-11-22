@@ -17,6 +17,7 @@ export default function Dialog(props) {
             fetch(`https://podcast-api.netlify.app/id/${props.id}`)
                 .then(res => res.json())
                 .then(data => setShow(prev => {
+
                     const seasonEle = data.seasons.map((seas,index) => {
                         return (
                             <button 
@@ -30,7 +31,7 @@ export default function Dialog(props) {
 
                     const episodeEle = data.seasons[season].episodes.map((epi,index) => {
                         return (
-                            <Episode title={epi.title} key={index} />
+                            <Episode title={epi.title} key={index} setFav={props.setFav} />
                         )
                     })
 

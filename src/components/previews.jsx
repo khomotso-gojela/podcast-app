@@ -21,7 +21,7 @@ export default function Previews(props) {
                         <div className="preview-text">
                             <h3>{prev.title}</h3>
                             <h5>Seasons: {prev.seasons}</h5>
-                            <h5>Last updated: {prev.updated}</h5>
+                            <h5>Last updated: {new Date(prev.updated).toUTCString()}</h5>
                             <h5>Genre: {prev.genres}</h5>
                         </div>
                     </div>)
