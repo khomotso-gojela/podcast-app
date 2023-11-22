@@ -29,39 +29,48 @@ function App() {
     }))
   }
 
-  function setFav(props) {
+  function setFav(props,season,index) {
+
     console.log('clicked')
+
     setFavPreviews(prev => {
-      
       let newPrev = createPrev(props)
+      let newSeason = newPrev.seasons[season]
+      let newEpisode = newSeason.episodes[index]
 
-      prev.map(show => {
-        if (show.id == newPrev.id) {
-
-            return [
-              ...prev,
-            ]
-
-        } else {
-
-            return [
-              ...prev,
-              newPrev
-            ]
-
-        }
-      })
-
+      const isAlreadyInPrev = prev.some(item => item.id === newPrev.id)
       
-    })
+      if (!isAlreadyInPrev) {
+        newEpisode.fav = true
+        newSeason.fav = newSeason.episodes.some(item => item.fav === true)
+        
+        console.log(newPrev)
+        return [...prev, newPrev];
+      } else {
+
+        const clear = prev.map(show => {
+            if (show.id == newPrev.id){
+              newSeason.fav = newSeason.episodes.some(item => item.fav === true)
+              newEpisode.fav = false
+              return newPrev
+            } else {
+              return show
+            }
+          }
+        )
+        
+        console.log(newPrev)
+        return clear
+      }
+  })
   }
 
   return (
     <div className='container'>
       <Nav />
-      <div>{favPreviews}</div>
+      <div>{favPreviews.map(item => item.title)}</div>
       <Previews open={HandleOpen}/>
-      <Dialog open={open.open} id={open.id} close={HandleClose} setFav={(data) => setFav(data)}/>
+      <Dialog open={open.open} id={open.id} close={HandleClose} setFav={(data,season,index) => setFav(data,season,index)}/>
     </div>
   )
 }
