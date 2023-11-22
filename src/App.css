@@ -1,0 +1,79 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.preview{
+  border: 2px solid gray;
+  border-radius: 2em;
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  justify-items: start;
+  align-items: center;
+}
+
+.preview-image {
+  width:180px;
+  margin-left: 20px;
+  border-radius: 1em;
+}
+
+.nav-container {
+  display:grid;
+  grid-template-columns: 20% 20% auto 20%;
+}
+
+.filter {
+  grid-column-start: 4;
+}
+
+.dialog {
+  position: fixed;
+  top: 10%;
+  right: 0;
+  width: 80%;
+  height: 80%;
+  border-radius: 2em;
+}
+
+.d-header {
+  text-align:left; 
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 100%;
+  height: 30%;
+  justify-items: left;
+ 
+}
+
+.dh-image {
+  width: 100%;
+  height: 80%;
+  border-radius: 1em;
+  align-self: center;
+}
+
+.dh-text {
+  margin-left: 30px;
+}
+
+.d-seasons {
+  display: inline-flex;
+  height: auto;
+  width: 100%;
+  overflow-x: auto; 
+}
+
+.d-episodes {
+  display: flex;
+  flex-direction: column;
+}
+
+.e-container {
+  display: grid;
+  grid-template-columns: 10% auto 10%;
+  justify-items: left;
+}
