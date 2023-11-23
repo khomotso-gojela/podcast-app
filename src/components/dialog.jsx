@@ -13,10 +13,11 @@ export default function Dialog(props) {
 
     useEffect(() => {
         setShow({})
-        if (props.id) {
-            fetch(`https://podcast-api.netlify.app/id/${props.id}`)
-                .then(res => res.json())
-                .then(data => setShow(prev => {
+
+        props.all.map(data => {
+
+            if (data.id == props.id) {
+                setShow(prev => { 
 
                     const seasonEle = data.seasons.map((seas,index) => {
                         return (
@@ -31,7 +32,7 @@ export default function Dialog(props) {
 
                     const episodeEle = data.seasons[season].episodes.map((epi,index) => {
                         return (
-                            <Episode title={epi.title} key={index} setFav={() => props.setFav(data,season,index)} />
+                            <Episode title={epi.title} star={epi.fav} key={index} setFav={() => props.setFav(data,season,index)} />
                         )
                     })
 
@@ -41,10 +42,10 @@ export default function Dialog(props) {
                     seasons: seasonEle,
                     episodes: episodeEle
                     })
-                }))
-        }
-
-    },[props.id,season])
+                })
+            }
+        })
+    },[props.id,props.all,,props.updated,season])
 
     function handleSeason(seas) {
         setSeason(() => seas)

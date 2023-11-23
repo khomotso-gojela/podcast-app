@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default function Nav() {
+export default function Nav(props) {
 
     return (
         <div className="nav-container">
-            <div>All</div>
-            <div>Favourate</div>
+            <div onClick={() => props.changepg('All')}>All</div>
+            <div onClick={() => props.changepg('Favourate')}>Favourate</div>
             <div className="filter">Filter</div>
 
         </div>

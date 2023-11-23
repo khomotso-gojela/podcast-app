@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import mergeArrays from "./mergeArrays";
 import createPrev from "./createPrev";
+import createFav from "./createFav";
 
 export default function Previews(props) {
     const [favObjs,setFavObjs] = useState([])
@@ -8,7 +9,8 @@ export default function Previews(props) {
     const [all,setAll] = useState([])
 
     const [previews,setPreviews] = useState([])
-    const [allPrevs,setAllPrevs] = useState([])
+    const [allPrevs,setAllPrevs] = useState([1,2])
+    const [allFavs,setAllFavs] = useState([])
 
     
     
@@ -20,53 +22,40 @@ export default function Previews(props) {
         fetch('https://podcast-api.netlify.app/')
             .then(res => res.json())
             .then(data => {
-                const prevs = data.map(prev => {
-                    return prev
-                const object = (
-                    <div
-                        key={prev.id}
-                        className="preview"
-                        onClick={() => props.open(prev.id)}
-                    >                  
-                        <div >
-                            <img className="preview-image" src={prev.image} alt="" />
-                        </div>
-                        <div className="preview-text">
-                            <h3>{prev.title}</h3>
-                            <h5>Seasons: {prev.seasons}</h5>
-                            <h5>Last updated: {new Date(prev.updated).toUTCString()}</h5>
-                            <h5>Genre: {prev.genres}</h5>
-                        </div>
-                    </div>)
-                })
-
-                return setPreviews(() => prevs)
+                return setPreviews(() => data)
             })
     },[])
 
+    
     useEffect(() =>{
-       
-            previews.map(prev => {
-                
-                const show = fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
-                    .then(res => res.json())
-                    .then(data => setAllShowObjs(prev => [...prev,data]))
-            })
-
+        
+        previews.map(prev => {
+            
+            const show = fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
+            .then(res => res.json())
+            .then(data => setAllShowObjs(prev => [...prev,data]))
+        })
+        
     },[previews])
 
     useEffect(() =>{
         setAll(mergeArrays(allShowObjs,favObjs))
-    },[favObjs])
+    },[allShowObjs,favObjs])
 
     useEffect(() =>{
-        setAllPrevs(createPrev(all))
+        // console.log("all:",all)
+        setAllPrevs(createPrev(all, props.open))
+    },[all,props.fav])
+
+    useEffect(() =>{
+        // console.log("all:",all)
+        setAllFavs(createFav(all))
     },[all])
 
-
+  
     return (
         <>
-            {'allPrevs'}
+            {allPrevs}
         </>
     )
 }

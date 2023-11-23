@@ -9,19 +9,28 @@ import createPrev from './components/createPrev'
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
   
-  const [page,setPage] = useState('')
+  const [page,setPage] = useState('All')
   const [open,setOpen] = useState({
     open:false,
-    id:undefined
+    id:undefined,
+    all:[],
   })
 
-  function HandleOpen(id) {
+  function handlePage(txt) {
+    console.log(txt)
+    setPage(() => txt)
+  }
+
+  function HandleOpen(id,all) {
+    // console.log(all)
     setOpen(prev => ({
       ...prev,
       open:!prev.open,
-      id: parseInt(id)
+      id: parseInt(id),
+      all: all
     }))
   }
+
   function HandleClose() {
     setOpen(prev => ({
       ...prev,
@@ -30,10 +39,11 @@ function App() {
     }))
   }
 
-  const setFav = (props,season,index) => {
+  function setFav(obj,season,index) {
       
     setFavPreviews(prev => {
-      let newPrev = createPrev(props)
+      let newPrev = createPrev(undefined,null,obj)
+      // console.log(newPrev)
       let newSeason = newPrev.seasons[season]
       let newEpisode = newSeason.episodes[index]
 
@@ -47,8 +57,8 @@ function App() {
             newEpisode.fav = !show.seasons[season].episodes[index].fav
             newSeason.fav = newSeason.episodes.some(item => item.fav == true)
             
-            console.log(newPrev.seasons[season].fav)
-            console.log(newPrev.seasons[season].episodes[index].fav)
+            // console.log(newPrev.seasons[season].fav)
+            // console.log(newPrev.seasons[season].episodes[index].fav)
             return newPrev
           } else {
             return show
@@ -63,8 +73,8 @@ function App() {
         newEpisode.fav = true
         newSeason.fav = newSeason.episodes.some(item => item.fav == true)
         
-        console.log(newPrev.seasons[season].fav)
-        console.log(newPrev.seasons[season].episodes[index].fav)
+        // console.log(newPrev.seasons[season].fav)
+        // console.log(newPrev.seasons[season].episodes[index].fav)
         return [...prev, newPrev];
         
       }
@@ -73,15 +83,22 @@ function App() {
   }
   
   useEffect(( ) => {
-    console.log(favPreviews)
+    // console.log('App.favpreviews:',favPreviews)
     
   },[favPreviews])
   
   return (
     <div className='container'>
-      <Nav />
+      <Nav changepg={(txt) => handlePage(txt)} />
       <Previews open={HandleOpen} fav={favPreviews} page={page} />
-      <Dialog open={open.open} id={open.id} close={HandleClose} setFav={(data,season,index) => setFav(data,season,index)}/>
+      <Dialog 
+        open={open.open} 
+        id={open.id} 
+        all={open.all}
+        close={HandleClose} 
+        setFav={(data,season,index) => setFav(data,season,index)}
+        updated={favPreviews}
+      />
     </div>
   )
 }
