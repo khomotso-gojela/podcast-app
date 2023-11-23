@@ -1,25 +1,28 @@
 import { useEffect,useState } from "react";
+import mergeArrays from "./mergeArrays";
+import createPrev from "./createPrev";
 
 export default function Previews(props) {
     const [favObjs,setFavObjs] = useState([])
     const [allShowObjs,setAllShowObjs] = useState([])
+    const [all,setAll] = useState([])
 
     const [previews,setPreviews] = useState([])
-    const [prevEle,setPresEle] = useState([])
+    const [allPrevs,setAllPrevs] = useState([])
 
     
     
-    // useEffect(() =>{
-    //     setFavObjs(() => props.fav)
-    // },[props.fav])
+    useEffect(() =>{
+        setFavObjs(() => props.fav)
+    },[props.fav])
 
     useEffect(() => {
         fetch('https://podcast-api.netlify.app/')
             .then(res => res.json())
             .then(data => {
                 const prevs = data.map(prev => {
-
-                return (
+                    return prev
+                const object = (
                     <div
                         key={prev.id}
                         className="preview"
@@ -41,22 +44,29 @@ export default function Previews(props) {
             })
     },[])
 
-    // useEffect(() =>{
-    //     if (previews.length == 51) {
-    //         const objs = previews.map(prev => {
-    //             console.log(prev)
-    //             fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
-    //                 .then(res => res.json())
-    //                 .then(data => console.log(data))
-    //         })
+    useEffect(() =>{
+       
+            previews.map(prev => {
+                
+                const show = fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
+                    .then(res => res.json())
+                    .then(data => setAllShowObjs(prev => [...prev,data]))
+            })
 
-    //     }
+    },[previews])
 
-    // },[previews])
+    useEffect(() =>{
+        setAll(mergeArrays(allShowObjs,favObjs))
+    },[favObjs])
+
+    useEffect(() =>{
+        setAllPrevs(createPrev(all))
+    },[all])
+
 
     return (
         <>
-            {previews}
+            {'allPrevs'}
         </>
     )
 }
