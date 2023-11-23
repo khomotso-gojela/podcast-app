@@ -1,7 +1,17 @@
 import { useEffect,useState } from "react";
 
 export default function Previews(props) {
+    const [favObjs,setFavObjs] = useState([])
+    const [allShowObjs,setAllShowObjs] = useState([])
+
     const [previews,setPreviews] = useState([])
+    const [prevEle,setPresEle] = useState([])
+
+    
+    
+    // useEffect(() =>{
+    //     setFavObjs(() => props.fav)
+    // },[props.fav])
 
     useEffect(() => {
         fetch('https://podcast-api.netlify.app/')
@@ -30,6 +40,19 @@ export default function Previews(props) {
                 return setPreviews(() => prevs)
             })
     },[])
+
+    // useEffect(() =>{
+    //     if (previews.length == 51) {
+    //         const objs = previews.map(prev => {
+    //             console.log(prev)
+    //             fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
+    //                 .then(res => res.json())
+    //                 .then(data => console.log(data))
+    //         })
+
+    //     }
+
+    // },[previews])
 
     return (
         <>
