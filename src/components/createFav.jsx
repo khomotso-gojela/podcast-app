@@ -1,7 +1,7 @@
 
 
 export default function createFav(all) {
-    console.log(all)
+    
     const list = all.map(show => {
         const newSeasons = show.seasons.filter(item => item.fav == true)
         const seasonList = newSeasons.map(seas => {
@@ -21,8 +21,11 @@ export default function createFav(all) {
             seasons:seasonList
         }
     })
-
+    
+    
     const newlist = list.filter(item => item.fav == true)
+
+    // console.log(newlist)
 
     return newlist
 

@@ -14,7 +14,7 @@ export default function createPrev(allShows,open,obj) {
                 <div
                     key={prev.id}
                     className="preview"
-                    onClick={() => open(prev.id,allShows)}
+                    onClick={() => open(prev.id, allShows)}
                 >                  
                     <div >
                         <img className="preview-image" src={prev.image} alt="" />

@@ -40,17 +40,19 @@ export default function Previews(props) {
 
     useEffect(() =>{
         setAll(mergeArrays(allShowObjs,favObjs))
-    },[allShowObjs,favObjs])
+    },[allShowObjs,favObjs,props.fav])
 
     useEffect(() =>{
         // console.log("all:",all)
-        setAllPrevs(createPrev(all, props.open))
-    },[all,props.fav])
+        // console.log('all:',all)
+        // console.log('allFavs:',allFavs)
+        setAllPrevs(createPrev(props.page == 'Favourate'? allFavs:all, props.open))
+    },[all,props.fav,props.page])
 
     useEffect(() =>{
         // console.log("all:",all)
         setAllFavs(createFav(all))
-    },[all])
+    },[all,props.fav])
 
   
     return (

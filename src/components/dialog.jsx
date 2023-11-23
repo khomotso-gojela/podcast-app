@@ -8,7 +8,7 @@ export default function Dialog(props) {
         seasons: [],
         episodes: []
     })
-    const [season,setSeason] = useState(0)
+    const [season,setSeason] = useState(1)
 
 
     useEffect(() => {
@@ -23,17 +23,24 @@ export default function Dialog(props) {
                         return (
                             <button 
                                 key={index}
-                                onClick={() => handleSeason(seas.season - 1)}
+                                onClick={() => handleSeason(seas.season)}
                             >
                                 Season {seas.season}
                             </button>
                         )
                     })
 
-                    const episodeEle = data.seasons[season].episodes.map((epi,index) => {
-                        return (
-                            <Episode title={epi.title} star={epi.fav} key={index} setFav={() => props.setFav(data,season,index)} />
-                        )
+                    let episodeEle = ''
+
+                    data.seasons.map(seas => {
+                        
+                        if (seas.season == season) {
+                            episodeEle = seas.episodes.map((epi,index) => {
+                                return (
+                                    <Episode title={epi.title} star={epi.fav} key={index} setFav={() => props.setFav(data,season,index)} />
+                                )
+                            })
+                        }
                     })
 
                     return ({
@@ -43,6 +50,8 @@ export default function Dialog(props) {
                     episodes: episodeEle
                     })
                 })
+            } else {
+                // console.log('else ran')
             }
         })
     },[props.id,props.all,,props.updated,season])

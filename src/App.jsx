@@ -44,7 +44,14 @@ function App() {
     setFavPreviews(prev => {
       let newPrev = createPrev(undefined,null,obj)
       // console.log(newPrev)
-      let newSeason = newPrev.seasons[season]
+      let newSeason = ''
+      newPrev.seasons.map(seas => {
+        if (seas.season == season){
+          newSeason = seas
+          
+        }
+      })
+
       let newEpisode = newSeason.episodes[index]
 
       const isAlreadyInPrev = prev.some(item => item.id === newPrev.id)
@@ -54,7 +61,7 @@ function App() {
         const clear = prev.map(show => {
           
           if (show.id == newPrev.id){
-            newEpisode.fav = !show.seasons[season].episodes[index].fav
+            newEpisode.fav = !newSeason.episodes[index].fav
             newSeason.fav = newSeason.episodes.some(item => item.fav == true)
             
             // console.log(newPrev.seasons[season].fav)
@@ -81,11 +88,6 @@ function App() {
     })
     
   }
-  
-  useEffect(( ) => {
-    // console.log('App.favpreviews:',favPreviews)
-    
-  },[favPreviews])
   
   return (
     <div className='container'>
