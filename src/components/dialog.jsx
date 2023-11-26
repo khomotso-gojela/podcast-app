@@ -2,18 +2,20 @@ import { useEffect,useState } from "react"
 import Episode from "./Episode"
 import Dheader from "./d-header"
 
+
 export default function Dialog(props) {
     const [show,setShow] = useState({
         pod: {},
         seasons: [],
         episodes: []
     })
-    const [season,setSeason] = useState(1)
-
-
+    const [season,setSeason] = useState()
+    
+    
     useEffect(() => {
         setShow({})
-
+        
+        console.log('ran')
         props.all.map(data => {
 
             if (data.id == props.id) {
@@ -54,30 +56,25 @@ export default function Dialog(props) {
                 // console.log('else ran')
             }
         })
-    },[props.id,props.all,,props.updated,season])
+    },[props.all,props.updated,season])
 
     function handleSeason(seas) {
         setSeason(() => seas)
     }
 
     return(
-        <dialog className="dialog" open={props.open}>
-            
+        <dialog className="dialog" open={props.open}>            
             <Dheader show={show.pod}/>
-
             <hr/>
-
             <div className="d-seasons">
                 {show.seasons? show.seasons : 'loading...'}
             </div>
-            <hr />  
-
+            <hr />
             <div className="d-episodes">
                 {show.episodes? show.episodes : 'loading...'}
             </div>
-
+            <hr />
             <button onClick={props.close}>Close</button>
-
         </dialog>
     )
 }

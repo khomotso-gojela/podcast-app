@@ -25,7 +25,7 @@ function App() {
     // console.log(all)
     setOpen(prev => ({
       ...prev,
-      open:!prev.open,
+      open: true,//!prev.open,
       id: parseInt(id),
       all: all
     }))
@@ -41,6 +41,7 @@ function App() {
 
   function setFav(obj,season,index) {
       
+    HandleOpen(open.id,open.all)
     setFavPreviews(prev => {
       let newPrev = createPrev(undefined,null,obj)
       // console.log(newPrev)
