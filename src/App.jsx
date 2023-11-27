@@ -6,9 +6,11 @@ import Nav from './components/Nav'
 import Dialog from './components/Dialog/dialog'
 import createPrev from './components/helperFunctions/createPrev'
 import Player from './components/Player'
+import SearchDialog from './components/Dialog/searchDialog'
 
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
+  const [sort,setSort] = useState('none')
   
   const [page,setPage] = useState('All')
   const [open,setOpen] = useState({
@@ -104,11 +106,17 @@ function App() {
       
     })
   }
+
+  function handleSort(text) {
+    console.log(text)
+    setSort(() => text)
+  }
   
   return (
     <div className='container'>
-      <Nav changepg={(txt) => handlePage(txt)} />
-      <Previews open={HandleOpen} fav={favPreviews} page={page} />
+      <Nav changepg={(txt) => handlePage(txt)} setSort={handleSort}/>
+      <SearchDialog />
+      <Previews sorting={sort} open={HandleOpen} fav={favPreviews} page={page} />
       <Dialog
         open={open.open}
         id={open.id}

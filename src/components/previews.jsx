@@ -2,6 +2,8 @@ import { useEffect,useState } from "react";
 import mergeArrays from "./helperFunctions/mergeArrays";
 import createPrev from "./helperFunctions/createPrev";
 import createFav from "./helperFunctions/createFav";
+import sortArray from "./helperFunctions/sortArray";
+import searchInArray from "./helperFunctions/searchInArray";
 
 export default function Previews(props) {
     const [favObjs,setFavObjs] = useState([]) // from props.fav
@@ -11,11 +13,13 @@ export default function Previews(props) {
     const [previews,setPreviews] = useState([]) 
     const [allPrevs,setAllPrevs] = useState([1,2])
     const [allFavs,setAllFavs] = useState([])
+  
 
     
     // passing list with objects of favourate episodes from App
     useEffect(() =>{
         setFavObjs(() => props.fav)
+        
     },[props.fav])
 
     // fetching all previews from an api to setPreviews
@@ -55,8 +59,10 @@ export default function Previews(props) {
         // console.log("all:",all)
         // console.log('all:',all)
         // console.log('allFavs:',allFavs)
-        setAllPrevs(createPrev(props.page == 'Favourate'? allFavs: all, props.open))
-    },[all,props.fav,props.page])
+        setAllPrevs(createPrev(props.page == 'Favourate'? 
+            sortArray(allFavs,props.sorting):
+            sortArray(all,props.sorting), props.open))
+    },[all,props.fav,props.page,props.sorting])
 
   
     return (

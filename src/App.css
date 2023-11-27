@@ -1,12 +1,10 @@
-#root {
-
-}
 
 /* Nav css */
 
 .nav-container {
   display:grid;
-  grid-template-columns: 20% 20% auto 20%;
+  grid-template-columns: 20% 20% auto 20% 20%;
+  justify-items: center;
 }
 
 /* Preview css */
