@@ -3,8 +3,8 @@ import './App.css'
 
 import Previews from './components/previews'
 import Nav from './components/Nav'
-import Dialog from './components/dialog'
-import createPrev from './components/createPrev'
+import Dialog from './components/Dialog/dialog'
+import createPrev from './components/helperFunctions/createPrev'
 import Player from './components/Player'
 
 function App() {

@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
-import mergeArrays from "./mergeArrays";
-import createPrev from "./createPrev";
-import createFav from "./createFav";
+import mergeArrays from "./helperFunctions/mergeArrays";
+import createPrev from "./helperFunctions/createPrev";
+import createFav from "./helperFunctions/createFav";
 
 export default function Previews(props) {
     const [favObjs,setFavObjs] = useState([]) // from props.fav
