@@ -39,7 +39,13 @@ export default function Dialog(props) {
                         if (seas.season == season) {
                             episodeEle = seas.episodes.map((epi,index) => {
                                 return (
-                                    <Episode title={epi.title} star={epi.fav} key={index} setFav={() => props.setFav(data,season,index)} />
+                                    <Episode 
+                                        key={index} 
+                                        epi={epi} 
+                                        star={epi.fav}
+                                        setFav={() => props.setFav(data,season,index)} 
+                                        play={props.play}
+                                    />
                                 )
                             })
                         }
@@ -64,6 +70,7 @@ export default function Dialog(props) {
 
     return(
         <dialog className="dialog" open={props.open}>            
+            <button onClick={props.close}>Close</button>
             <Dheader show={show.pod}/>
             <hr/>
             <div className="d-seasons">
@@ -74,7 +81,6 @@ export default function Dialog(props) {
                 {show.episodes? show.episodes : 'loading...'}
             </div>
             <hr />
-            <button onClick={props.close}>Close</button>
         </dialog>
     )
 }

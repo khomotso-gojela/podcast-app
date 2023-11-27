@@ -60,8 +60,8 @@ export default function Previews(props) {
 
   
     return (
-        <>
+        <div className="prev-container">
             {allPrevs}
-        </>
+        </div>
     )
 }

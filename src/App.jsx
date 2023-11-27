@@ -5,6 +5,7 @@ import Previews from './components/previews'
 import Nav from './components/Nav'
 import Dialog from './components/dialog'
 import createPrev from './components/createPrev'
+import Player from './components/Player'
 
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
@@ -15,6 +16,8 @@ function App() {
     id:undefined,
     all:[],
   })
+
+  const [playing,setPlaying] = useState({})
 
   function handlePage(txt) {
     console.log(txt)
@@ -89,19 +92,34 @@ function App() {
     })
     
   }
+
+  function playSound(epi) {
+    // console.log(epi)
+    setPlaying(prev => {
+      return {
+        ...prev,
+        play:true,
+        epi:epi
+      }
+      
+    })
+  }
   
   return (
     <div className='container'>
       <Nav changepg={(txt) => handlePage(txt)} />
       <Previews open={HandleOpen} fav={favPreviews} page={page} />
-      <Dialog 
-        open={open.open} 
-        id={open.id} 
+      <Dialog
+        open={open.open}
+        id={open.id}
         all={open.all}
-        close={HandleClose} 
+        close={HandleClose}
         setFav={(data,season,index) => setFav(data,season,index)}
         updated={favPreviews}
+        play={playSound}
       />
+      
+      <Player setplaying={playing} />
     </div>
   )
 }

@@ -3,16 +3,16 @@
 export default function Episode(props) {
     return (
         <div className="e-container">
-            <div>
+            <div onClick={() => props.play(props.epi)}>
                 Play
             </div>
 
             <div>
-                {props.title}
+                {props.epi.title}
             </div>
             
             <button className="star" onClick={() => props.setFav()}>
-                {props.star? 'Star' : 'noStar'}
+                {props.epi.fav? 'Star' : 'noStar'}
             </button>
 
         </div>
