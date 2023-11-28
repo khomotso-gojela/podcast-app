@@ -13,13 +13,13 @@
 
 // ✅ Automatically filter shows by genre if the genre label is clicked on
 
-export default function sortArray(Array, sort = 'latest') {
+export default function sortArray(Array, sort) {
     
     const newArray = Array    
     
     switch(sort){
         case 'none':
-            return Array
+            return newArray
 
         case 'A-Z':
             newArray.sort((a, b) => {

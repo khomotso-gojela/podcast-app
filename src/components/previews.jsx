@@ -4,6 +4,9 @@ import createPrev from "./helperFunctions/createPrev";
 import createFav from "./helperFunctions/createFav";
 import sortArray from "./helperFunctions/sortArray";
 import searchInArray from "./helperFunctions/searchInArray";
+import CarouselView from "./carouselView";
+import { CContainer,CRow } from '@coreui/react'
+
 
 export default function Previews(props) {
     const [favObjs,setFavObjs] = useState([]) // from props.fav
@@ -33,14 +36,15 @@ export default function Previews(props) {
 
     // making a shows array containing all shows from previews array
     useEffect(() =>{
-        
-        previews.map(prev => {
+        if ((previews.length == 51)) {
+            previews.map(prev => {
+                
+                fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
+                .then(res => res.json())
+                .then(data => setAllShowObjs(prev => [...prev,data]))
+            })
             
-            const show = fetch(`https://podcast-api.netlify.app/id/${parseInt(prev.id)}`)
-            .then(res => res.json())
-            .then(data => setAllShowObjs(prev => [...prev,data]))
-        })
-        
+        }
     },[previews])
 
     // making a list containing all shows and fav episodes by merging allShowObjs & favObjs
@@ -66,8 +70,11 @@ export default function Previews(props) {
 
   
     return (
-        <div className="prev-container">
-            {allPrevs}
-        </div>
+        <>
+            {props.page == 'Home' && <CarouselView />}
+            <CRow lg={{ cols: 3 }} xxl={{ cols: 4}} className="prev-container">
+                {props.page != 'Home' && allPrevs}
+            </CRow>        
+        </>
     )
 }

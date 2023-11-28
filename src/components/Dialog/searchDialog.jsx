@@ -22,12 +22,12 @@ export default function SearchDialog() {
             <input 
                 placeholder="search show"
                 type="text"
-                value=''
+               
             />
             <br />
             <label htmlFor="genres">Genre: </label>
             <select name="genres" id="genres">
-                {genres.map((gen,ind) => <option key={ind} value={gen}>{gen}</option>)}
+                {genres.map((gen,ind) => <option key={ind} >{gen}</option>)}
             </select>
         </dialog>
     )

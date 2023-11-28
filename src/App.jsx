@@ -1,5 +1,8 @@
 import { useState,useEffect } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@coreui/coreui/dist/css/coreui.min.css'
 import './App.css'
+import { CContainer } from '@coreui/react'
 
 import Previews from './components/previews'
 import Nav from './components/Nav'
@@ -7,6 +10,7 @@ import Dialog from './components/Dialog/dialog'
 import createPrev from './components/helperFunctions/createPrev'
 import Player from './components/Player'
 import SearchDialog from './components/Dialog/searchDialog'
+
 
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
@@ -113,23 +117,25 @@ function App() {
   }
   
   return (
-    <div className='container'>
+    <>
+      <CContainer fluid className='container'>
+        <SearchDialog />
+        <Previews sorting={sort} open={HandleOpen} fav={favPreviews} page={page} />
+        <Dialog
+          open={open.open}
+          id={open.id}
+          all={open.all}
+          close={HandleClose}
+          setFav={(data,season,index) => setFav(data,season,index)}
+          updated={favPreviews}
+          play={playSound}
+        />
+        
+        <Player setplaying={playing} />
+      </CContainer>
       <Nav changepg={(txt) => handlePage(txt)} setSort={handleSort}/>
-      <SearchDialog />
-      <Previews sorting={sort} open={HandleOpen} fav={favPreviews} page={page} />
-      <Dialog
-        open={open.open}
-        id={open.id}
-        all={open.all}
-        close={HandleClose}
-        setFav={(data,season,index) => setFav(data,season,index)}
-        updated={favPreviews}
-        play={playSound}
-      />
-      
-      <Player setplaying={playing} />
-    </div>
-  )
+    </>
+    )
 }
 
 export default App
