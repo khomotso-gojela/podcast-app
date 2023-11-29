@@ -1,7 +1,10 @@
 
-import { CFormSelect, CNavbar  } from '@coreui/react'
+import { CButton, CFormSelect, CNavbar  } from '@coreui/react'
+import { supabase } from '../superbase/client'
+import { useNavigate } from 'react-router-dom'
 
 export default function Nav(props) {
+    let navigate = useNavigate()
 
     return (
         <CNavbar  className="nav-container">
@@ -23,6 +26,15 @@ export default function Nav(props) {
                     <option value="latest">latest</option>
                 </CFormSelect>
             </div>
+
+            <CButton className="button block" type="button" 
+                onClick={() => {
+                    navigate('/')
+                    supabase.auth.signOut()
+                }}
+            >
+                Sign Out
+            </CButton>
 
         </CNavbar >
     )

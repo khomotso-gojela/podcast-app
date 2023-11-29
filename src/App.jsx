@@ -22,8 +22,8 @@ function App() {
     id:undefined,
     all:[],
   })
-
   const [playing,setPlaying] = useState({})
+  
 
   function handlePage(txt) {
     console.log(txt)

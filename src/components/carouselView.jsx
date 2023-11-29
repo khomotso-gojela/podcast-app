@@ -1,4 +1,4 @@
-import { CCarousel,CCarouselCaption,CCarouselItem,CImage  } from '@coreui/react'
+import { CCarousel, CCarouselCaption, CCarouselItem, CImage  } from '@coreui/react'
 
 
 export default function CarouselView() {
