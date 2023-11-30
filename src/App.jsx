@@ -25,25 +25,26 @@ function App() {
     all:[],
   })
   const [playing,setPlaying] = useState({})
-  const [shouldWarn,setshouldWarn] = useState(true)
+  const [shouldWarn,setshouldWarn] = useState(false)
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
-    
       if (shouldWarn) {
-        const message = "Music still playing. Are you sure you want to leave?";
-        event.returnValue = message
-        return message
+        const message = "Music is still playing.";
+        // Standard for most browsers
+        event.returnValue = message;
+        // For some older browsers
+        return message;
       }
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload)
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload)
-    }
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-  }, []);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+
+  }, [shouldWarn]);
 
   useEffect(() => {
     async function gettingData() {
@@ -163,7 +164,9 @@ function App() {
     <>
       <CContainer fluid className='container'>
         <SearchDialog />
+
         <ReactAudio setWarn={setshouldWarn} setplaying={playing}/>
+        
         <Previews 
           sorting={sort} 
           open={HandleOpen} 

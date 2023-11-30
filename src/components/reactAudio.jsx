@@ -13,12 +13,14 @@ function ReactAudio(props) {
       setPlay(() => {
           return (  
             <>
-              <div>{play.title}</div>
+              <div style={{color:'white'}}>{title}</div>
               <ReactAudioPlayer
                 key={title}
                 src={src}
                 autoPlay
                 controls
+                onPlay={() => {props.setWarn(true)}}
+                onPause={(e) => handlePause(e)}
               />
             </>
         )
@@ -26,9 +28,14 @@ function ReactAudio(props) {
       
   },[props.setplaying])
 
+  function handlePause(e){
+    props.setWarn(false)
+    console.log(e)
+
+  }
+
   return (
     <div className="fixed-bottom">
-        <div>{play.title}</div>
         {play}
   </div>
   )
