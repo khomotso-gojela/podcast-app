@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { supabase } from '../superbase/client'
 import { Link, useNavigate } from 'react-router-dom'
+
 
 const styles = {
     display: 'flex',
@@ -13,6 +14,7 @@ function Login({setToken}) {
         email:'',
         password:''
     })
+
     let navigate = useNavigate()
 
     function handleInput(e) {
@@ -48,7 +50,6 @@ function Login({setToken}) {
             console.log(error)
         }
     }
-
 
     return (
         <div style={styles}>

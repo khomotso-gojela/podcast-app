@@ -6,6 +6,8 @@ import sortArray from "./helperFunctions/sortArray";
 import searchInArray from "./helperFunctions/searchInArray";
 import CarouselView from "./carouselView";
 import { CContainer,CRow } from '@coreui/react'
+import { mergeStrips } from './helperFunctions/mergeStrips'
+import stripArray from "./helperFunctions/stripArray";
 
 
 export default function Previews(props) {
@@ -21,7 +23,7 @@ export default function Previews(props) {
     
     // passing list with objects of favourate episodes from App
     useEffect(() =>{
-        setFavObjs(() => props.fav)
+        setFavObjs(() => stripArray(props.fav))
         
     },[props.fav])
 
@@ -49,23 +51,26 @@ export default function Previews(props) {
 
     // making a list containing all shows and fav episodes by merging allShowObjs & favObjs
     useEffect(() =>{
-        setAll(mergeArrays(allShowObjs,favObjs))
+        console.log(favObjs)
+        setAll(mergeStrips(allShowObjs,favObjs))
     },[allShowObjs,favObjs,props.fav])
 
     // separating fav episodes from the all shows array
     useEffect(() =>{
-        // console.log("all:",all)
         setAllFavs(createFav(all))
     },[all,props.fav])
 
     // making elements from the merged array of objects/allFavs(depends on page), saving to allPrevs 
     useEffect(() =>{
-        // console.log("all:",all)
-        // console.log('all:',all)
-        // console.log('allFavs:',allFavs)
+        
         setAllPrevs(createPrev(props.page == 'Favourate'? 
             sortArray(allFavs,props.sorting):
-            sortArray(all,props.sorting), props.open))
+            sortArray(all,props.sorting), props.open));
+
+        // props.setOpen(prev => ({
+        //     ...prev,
+        //     all: all
+        //     }))
     },[all,props.fav,props.page,props.sorting])
 
   

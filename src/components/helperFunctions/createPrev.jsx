@@ -3,30 +3,17 @@ import { CCol ,CRow } from '@coreui/react'
 
 export default function createPrev(allShows,open,obj) {
 
-    // console.log('createPrev')
+    
     let preview = []
 
     if (obj){
         preview = obj
 
     } else {
-        preview = allShows.map(prev => {        
+        
+        preview = allShows? allShows.map(prev => {        
             return (
-                // <div
-                //     key={prev.id}
-                //     className="preview"
-                //     onClick={() => open(prev.id, allShows)}
-                // >                  
-                //     <div >
-                //         <img className="preview-image" src={prev.image} alt="" />
-                //     </div>
-                //     <div className="preview-text">
-                //         <h3>{prev.title}</h3>
-                //         <h5>Seasons: {prev.seasons.length}</h5>
-                //         <h5>Last updated: {new Date(prev.updated).toUTCString()}</h5>
-                //         <h5>Genre: {prev.genres? prev.genres.length : 'All'}</h5>
-                //     </div>
-                // </div>
+                
                 <CCol key={prev.id}>
                     <CCard className="preview" onClick={() => open(prev.id, allShows)}  style={{ width: '18rem' }}>
                         <CCardImage orientation="top" src={prev.image} />
@@ -45,11 +32,11 @@ export default function createPrev(allShows,open,obj) {
                             
                         </CCardText>
                         </CCardBody>
-                </CCard>
-              </CCol>
+                    </CCard>
+                </CCol>
             )
                 
-        })
+        }): []
 
     }
 

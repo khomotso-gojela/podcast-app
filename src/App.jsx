@@ -7,15 +7,18 @@ import { CContainer } from '@coreui/react'
 import Previews from './components/previews'
 import Nav from './components/Nav'
 import Dialog from './components/Dialog/dialog'
-import createPrev from './components/helperFunctions/createPrev'
 import Player from './components/Player'
 import SearchDialog from './components/Dialog/searchDialog'
+import { supabase } from './superbase/client';
+import Strip from './components/helperFunctions/strip';
+import createFav from './components/helperFunctions/createFav'
+import stripArray from './components/helperFunctions/stripArray';
 
 
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
-  const [sort,setSort] = useState('none')
-  
+  const [newFav, setNewFav] = useState([])
+  const [sort,setSort] = useState('none')  
   const [page,setPage] = useState('All')
   const [open,setOpen] = useState({
     open:false,
@@ -23,18 +26,38 @@ function App() {
     all:[],
   })
   const [playing,setPlaying] = useState({})
+
+  useEffect(() => {
+    async function gettingData() {
+      const { data, error } = await supabase
+          .from('favourates')
+          .select();
   
+      if (error) {
+          // console.log(error.message);
+      }
+  
+      if (data) {
+          // console.log(createFav(data));
+
+      }
+      setFavPreviews(createFav(data))
+
+  }
+  gettingData()
+
+  }, []);
 
   function handlePage(txt) {
-    console.log(txt)
+    
     setPage(() => txt)
   }
 
   function HandleOpen(id,all) {
-    // console.log(all)
+    
     setOpen(prev => ({
       ...prev,
-      open: true,//!prev.open,
+      open: true,
       id: parseInt(id),
       all: all
     }))
@@ -49,11 +72,12 @@ function App() {
   }
 
   function setFav(obj,season,index) {
+    
+    let r = null
+    
+    setFavPreviews(previous => {
+      let newPrev = obj 
       
-    HandleOpen(open.id,open.all)
-    setFavPreviews(prev => {
-      let newPrev = createPrev(undefined,null,obj)
-      // console.log(newPrev)
       let newSeason = ''
       newPrev.seasons.map(seas => {
         if (seas.season == season){
@@ -64,43 +88,44 @@ function App() {
 
       let newEpisode = newSeason.episodes[index]
 
-      const isAlreadyInPrev = prev.some(item => item.id === newPrev.id)
+      const isAlreadyInPrev = previous.some(item => item.id === newPrev.id)
       
       if (isAlreadyInPrev) {
         
-        const clear = prev.map(show => {
+        const newList = previous.map(show => {
           
           if (show.id == newPrev.id){
             newEpisode.fav = !newSeason.episodes[index].fav
             newSeason.fav = newSeason.episodes.some(item => item.fav == true)
             
-            // console.log(newPrev.seasons[season].fav)
-            // console.log(newPrev.seasons[season].episodes[index].fav)
-            return newPrev
+            return Strip(newPrev)
           } else {
-            return show
+            return Strip(show)
           }
         })
         
         
-        return clear
+        r = stripArray(newList)
         
       } else {
 
         newEpisode.fav = true
         newSeason.fav = newSeason.episodes.some(item => item.fav == true)
+
+      
+        console.log(stripArray([...previous, Strip(newPrev)]))
+
+        r = stripArray([...previous, Strip(newPrev)]);
         
-        // console.log(newPrev.seasons[season].fav)
-        // console.log(newPrev.seasons[season].episodes[index].fav)
-        return [...prev, newPrev];
         
       }
+
+      return r
     })
-    
   }
 
   function playSound(epi) {
-    // console.log(epi)
+   
     setPlaying(prev => {
       return {
         ...prev,
@@ -112,15 +137,25 @@ function App() {
   }
 
   function handleSort(text) {
-    console.log(text)
+    
     setSort(() => text)
   }
+
+  console.log(newFav)
   
   return (
     <>
       <CContainer fluid className='container'>
         <SearchDialog />
-        <Previews sorting={sort} open={HandleOpen} fav={favPreviews} page={page} />
+
+        <Previews 
+          sorting={sort} 
+          open={HandleOpen} 
+          fav={favPreviews} 
+          page={page} 
+          setOpen={setOpen}
+        />
+
         <Dialog
           open={open.open}
           id={open.id}

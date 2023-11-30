@@ -15,7 +15,7 @@ export default function Dialog(props) {
     
     
     useEffect(() => {
-        setShow({})
+        // setShow({})
         
         console.log('ran')
         props.all.map(data => {
@@ -25,15 +25,10 @@ export default function Dialog(props) {
 
                     const seasonEle = data.seasons.map((seas,index) => {
                         return (
-                            // <button 
-                            //     key={index}
-                            //     onClick={() => handleSeason(seas.season)}
-                            // >
-                            //     Season {seas.season}
-                            // </button>
+
                             <Pagination.Item onClick={() => handleSeason(seas.season)} key={index} >
-                            {seas.season}
-                          </Pagination.Item>
+                                {seas.season}
+                            </Pagination.Item>
                         )
                     })
 
@@ -74,19 +69,7 @@ export default function Dialog(props) {
     }
 
     return(
-        // <dialog className="dialog" open={props.open}>            
-        //     <button onClick={props.close}>Close</button>
-        //     <Dheader show={show.pod}/>
-        //     <hr/>
-        //     <div className="d-seasons">
-        //         {show.seasons? show.seasons : 'loading...'}
-        //     </div>
-        //     <hr />
-        //     <div className="d-episodes">
-        //         {show.episodes? show.episodes : 'loading...'}
-        //     </div>
-        //     <hr />
-        // </dialog>
+       
         <CModal
             size="xl"
             visible={props.open}
@@ -96,17 +79,16 @@ export default function Dialog(props) {
             <CModalHeader>
                 <Dheader show={show.pod}/>
             </CModalHeader>
-            <CModalBody>
-            
 
+            <CModalBody>
                 <Pagination className="d-seasons">{show.seasons? show.seasons : 'loading...'}</Pagination>
                 {show.episodes? show.episodes :
-                <>
-                <CPlaceholder xs={6} />
-                <CPlaceholder className="w-75" />
-                <CPlaceholder style={{ width: '30%'}} />
-                
-                </>
+                    <>
+                    <CPlaceholder xs={6} />
+                    <CPlaceholder className="w-75" />
+                    <CPlaceholder style={{ width: '30%'}} />
+                    
+                    </>
                  }
             </CModalBody>
         </CModal>
