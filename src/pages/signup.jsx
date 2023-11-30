@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { supabase } from '../superbase/client' 
+import { Link } from 'react-router-dom'
 
 
 const styles = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    background: 'linear-gradient(to right, #ff7e5f, #feb47b)'
 }
+
 
 function Signup() {
     const [formData,setFormData] = useState({
@@ -86,6 +91,7 @@ function Signup() {
             <br />
             <button>Signup</button>
         </form>
+        <div>Have an account? <Link to='/'>Login</Link></div>
 
         </div>
     )

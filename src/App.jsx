@@ -7,17 +7,16 @@ import { CContainer } from '@coreui/react'
 import Previews from './components/previews'
 import Nav from './components/Nav'
 import Dialog from './components/Dialog/dialog'
-import Player from './components/Player'
 import SearchDialog from './components/Dialog/searchDialog'
 import { supabase } from './superbase/client';
 import Strip from './components/helperFunctions/strip';
 import createFav from './components/helperFunctions/createFav'
 import stripArray from './components/helperFunctions/stripArray';
+import ReactAudio from './components/reactAudio';
 
 
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
-  const [newFav, setNewFav] = useState([])
   const [sort,setSort] = useState('none')  
   const [page,setPage] = useState('All')
   const [open,setOpen] = useState({
@@ -26,6 +25,25 @@ function App() {
     all:[],
   })
   const [playing,setPlaying] = useState({})
+  const [shouldWarn,setshouldWarn] = useState(true)
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+    
+      if (shouldWarn) {
+        const message = "Music still playing. Are you sure you want to leave?";
+        event.returnValue = message
+        return message
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+
+  }, []);
 
   useEffect(() => {
     async function gettingData() {
@@ -140,14 +158,12 @@ function App() {
     
     setSort(() => text)
   }
-
-  console.log(newFav)
   
   return (
     <>
       <CContainer fluid className='container'>
         <SearchDialog />
-
+        <ReactAudio setWarn={setshouldWarn} setplaying={playing}/>
         <Previews 
           sorting={sort} 
           open={HandleOpen} 
@@ -166,7 +182,7 @@ function App() {
           play={playSound}
         />
         
-        <Player setplaying={playing} />
+        {/* <Player setplaying={playing} /> */}
       </CContainer>
       <Nav changepg={(txt) => handlePage(txt)} setSort={handleSort}/>
     </>

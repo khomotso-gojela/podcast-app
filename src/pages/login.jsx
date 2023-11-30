@@ -6,7 +6,10 @@ import { Link, useNavigate } from 'react-router-dom'
 const styles = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    background: 'linear-gradient(to right, #ff7e5f, #feb47b)'
 }
 
 function Login({setToken}) {
@@ -54,6 +57,8 @@ function Login({setToken}) {
     return (
         <div style={styles}>
         <form onSubmit={handleSubmit}>
+            <label htmlFor='email'>email</label>
+            <br />
             <input 
                 type="email"
                 name='email'
@@ -61,6 +66,8 @@ function Login({setToken}) {
                 onChange={handleInput} 
             />
             <br />
+            <br />
+            <label htmlFor='password'>password</label>
             <br />
             <input 
                 type="password"
