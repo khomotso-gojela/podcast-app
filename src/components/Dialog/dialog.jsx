@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react"
 import Episode from "./Episode"
 import Dheader from "./d-header"
-import { CModal, CModalHeader, CModalBody,CPlaceholder } from '@coreui/react'
+import { CModal, CModalHeader, CModalBody,CPlaceholder,CSpinner } from '@coreui/react'
 import Pagination from 'react-bootstrap/Pagination';
 import showGenres from "../helperFunctions/showGenres";
 
@@ -86,10 +86,10 @@ export default function Dialog(props) {
             <CModalHeader>
                 <div className='d-header'>
                 
-                <img className="dh-image" src={show.pod? show.pod.image : 'loading...'} alt="" />
+                <img className="dh-image" src={show.pod? show.pod.image : <CSpinner color="secondary" />} alt="" />
                 
                 <div className="dh-text">
-                    <h2>{show.pod? show.pod.title : 'loading...'}</h2>
+                    <h2>{show.pod? show.pod.title : <CSpinner color="secondary" />}</h2>
                     
                 </div>
                 

@@ -71,7 +71,7 @@ export default function Previews(props) {
   
     return (
         <>
-            {props.page == 'Home' && <CarouselView />}
+            {props.page == 'Home' && <CarouselView all={all} />}
             <CRow lg={{ cols: 3 }} xxl={{ cols: 4}} className="prev-container">
                 {props.page != 'Home' && allPrevs}
             </CRow>        
