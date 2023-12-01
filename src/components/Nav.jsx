@@ -30,6 +30,8 @@ export default function Nav(props) {
             <CButton className="button block" type="button" 
                 onClick={() => {
                     navigate('/')
+                    sessionStorage.clear();
+
                     supabase.auth.signOut()
                 }}
             >

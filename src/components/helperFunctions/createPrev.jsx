@@ -4,39 +4,41 @@ import showGenres from './showGenres'
 
 export default function createPrev(allShows,open,obj) {
 
-    
-    let preview = []
-
-    if (obj){
-        preview = obj
-
-    } else {
+    console.log(allShows)
         
-        preview = allShows? allShows.map(prev => {        
+        let preview = allShows && allShows.map(prev => {     
+           
+
+            let newprev = ''
+            if (prev.item) {
+                newprev = prev.item
+            } else {
+                newprev = prev
+            }
+
             return (
                 
-                <CCol className='prev-cont' key={prev.id}>
-                    <CCard className="preview" onClick={() => open(prev.id, allShows)}  style={{ width: '18rem' }}>
-                        <CCardImage className="preview-image" orientation="top" src={prev.image} />
+                <CCol className='prev-cont' key={newprev.id}>
+                    <CCard className="preview" onClick={() => open(newprev.id, allShows)}  style={{ width: '18rem' }}>
+                        <CCardImage className="preview-image" orientation="top" src={newprev.image} />
                         <CCardBody>
-                        <CCardTitle>{prev.title}</CCardTitle>
+                        <CCardTitle>{newprev.title}</CCardTitle>
                         <CCardText>
-                            Seasons: {prev.seasons.length}                        
+                            Seasons: {newprev.seasons? newprev.seasons.length :''}                        
                         </CCardText>
                         <CCardText>
-                            Last updated: {new Date(prev.updated).toUTCString()}                            
+                            Last updated: {new Date(newprev.updated).toUTCString()}                            
                         </CCardText>
                         <CCardText>
-                            Genres: {prev.genres? showGenres(prev.genres) : ''}                            
+                            Genres: {newprev.genres? showGenres(newprev.genres) : ''}                            
                         </CCardText>
                         </CCardBody>
                     </CCard>
                 </CCol>
             )
                 
-        }): []
-
-    }
+        })
+   
 
 
     return preview

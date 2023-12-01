@@ -15,7 +15,9 @@ function Homepage() {
 
   useEffect(() => {
     if (sessionStorage.getItem('token')) {
+      
       let data = JSON.parse(sessionStorage.getItem('token'))
+      setToken(data)
     }
   }, []);
 

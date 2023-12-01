@@ -13,6 +13,7 @@ import Strip from './components/helperFunctions/strip';
 import createFav from './components/helperFunctions/createFav'
 import stripArray from './components/helperFunctions/stripArray';
 import ReactAudio from './components/reactAudio';
+import FuseSearch from './components/fuse/fuseSearch';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
   })
   const [playing,setPlaying] = useState({})
   const [shouldWarn,setshouldWarn] = useState(false)
+  const [fSearch,setfSearch] = useState('')
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -166,13 +168,15 @@ function App() {
         <SearchDialog />
 
         <ReactAudio setWarn={setshouldWarn} setplaying={playing}/>
-        
+
+        <FuseSearch setText={setfSearch} />
         <Previews 
           sorting={sort} 
           open={HandleOpen} 
           fav={favPreviews} 
           page={page} 
           setOpen={setOpen}
+          searchText={fSearch}
         />
 
         <Dialog

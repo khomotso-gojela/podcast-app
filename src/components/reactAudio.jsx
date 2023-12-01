@@ -1,43 +1,100 @@
-import { useState,useEffect} from 'react'
+import { useState,useEffect, createRef} from 'react'
 import ReactAudioPlayer from 'react-audio-player'
 
 function ReactAudio(props) {
-  const [play,setPlay] = useState(<ReactAudioPlayer/>)
+  const [lastPlayed,setLastplayed] = useState(() => {
+    if (localStorage.getItem('lastPlayed')) {
+      return JSON.parse(localStorage.getItem('lastPlayed'))
+    } else {
+      return {
+        title: 'Episode title'
+      }
+    }
+  })
+  const [play,setPlay] = useState(
+    lastPlayed
+  )
+  const [history,setHistory] = useState([])
+  let playerRef = createRef()
 
   useEffect(() => {
       
-      const src = props.setplaying.epi? props.setplaying.epi.file:''
-      const title = props.setplaying.epi? props.setplaying.epi.title:''
+      const src = props.setplaying.epi? props.setplaying.epi.file: lastPlayed.src
+      const title = props.setplaying.epi? props.setplaying.epi.title: lastPlayed.title
       console.log(src)
 
       setPlay(() => {
           return (  
-            <>
-              <div style={{color:'white'}}>{title}</div>
-              <ReactAudioPlayer
-                key={title}
-                src={src}
-                autoPlay
-                controls
-                onPlay={() => {props.setWarn(true)}}
-                onPause={(e) => handlePause(e)}
-              />
-            </>
+            {              
+              src: src,
+              title: title
+            }
         )
       })
-      
+
+     
   },[props.setplaying])
 
+  useEffect(() => {
+    console.log(history)
+  }, [history]);
+
+  useEffect(() => {
+    playerRef.current.audioEl.current.currentTime = lastPlayed.time
+    
+    
+  }, []);
+
+  // adds episode to history and save lastPlayed after pause 
   function handlePause(e){
     props.setWarn(false)
-    console.log(e)
+    
+    console.log(playerRef.current)
+    const time = playerRef.current.audioEl.current.currentTime
+    const title = playerRef.current.props.title
+    const src = playerRef.current.props.src
+    const newAdd = {title:title,src:src,time:time}
 
+    setLastplayed(newAdd)
+    localStorage.setItem('lastPlayed',JSON.stringify(newAdd))
+    
+    setHistory(prev => {
+      
+
+      return [...prev, newAdd]
+    })
+    
+  }
+
+  useEffect(() => {
+    localStorage.setItem('history',JSON.stringify(history))
+  }, [history]);
+
+  function handleReset() {
+    localStorage.removeItem('history')
   }
 
   return (
     <div className="fixed-bottom">
-        {play}
-  </div>
+    <>
+      <div style={{color:'black'}}>{play.title}</div>
+      <div>
+        <ReactAudioPlayer
+          id={play.title}
+          title={play.title}
+          ref={playerRef}
+          key={play.title}
+          src={play.src}        
+          controls
+          onPlay={() => {props.setWarn(true)}}
+          onPause={(e) => handlePause(e)}
+          onListen={(e) => handleListen(e)}
+        />
+        <button onClick={handleReset}>Reset</button>
+      </div>
+      
+    </>
+    </div>
   )
 }
 
