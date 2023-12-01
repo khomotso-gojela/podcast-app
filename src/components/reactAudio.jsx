@@ -21,7 +21,6 @@ function ReactAudio(props) {
       
       const src = props.setplaying.epi? props.setplaying.epi.file: lastPlayed.src
       const title = props.setplaying.epi? props.setplaying.epi.title: lastPlayed.title
-      console.log(src)
 
       setPlay(() => {
           return (  
@@ -36,7 +35,7 @@ function ReactAudio(props) {
   },[props.setplaying])
 
   useEffect(() => {
-    console.log(history)
+   
   }, [history]);
 
   useEffect(() => {
@@ -49,7 +48,6 @@ function ReactAudio(props) {
   function handlePause(e){
     props.setWarn(false)
     
-    console.log(playerRef.current)
     const time = playerRef.current.audioEl.current.currentTime
     const title = playerRef.current.props.title
     const src = playerRef.current.props.src
@@ -86,6 +84,7 @@ function ReactAudio(props) {
           key={play.title}
           src={play.src}        
           controls
+          autoPlay
           onPlay={() => {props.setWarn(true)}}
           onPause={(e) => handlePause(e)}
           onListen={(e) => handleListen(e)}

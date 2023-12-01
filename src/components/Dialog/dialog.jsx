@@ -16,9 +16,7 @@ export default function Dialog(props) {
     
     
     useEffect(() => {
-        // setShow({})
         
-        console.log('ran')
         props.all.map(data => {
 
             if (data.id == props.id) {

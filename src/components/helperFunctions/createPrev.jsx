@@ -3,8 +3,6 @@ import { CCol ,CRow } from '@coreui/react'
 import showGenres from './showGenres'
 
 export default function createPrev(allShows,open,obj) {
-
-    console.log(allShows)
         
         let preview = allShows && allShows.map(prev => {     
            
