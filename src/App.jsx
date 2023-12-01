@@ -166,7 +166,7 @@ function App() {
 
         <ReactAudio setWarn={setshouldWarn} setplaying={playing}/>
 
-        <FuseSearch setText={setfSearch} />
+        {page != 'Home' && <FuseSearch setText={setfSearch} />}
         <Previews 
           sorting={sort} 
           open={HandleOpen} 
