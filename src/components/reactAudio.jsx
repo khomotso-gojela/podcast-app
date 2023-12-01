@@ -35,8 +35,7 @@ function ReactAudio(props) {
   },[props.setplaying])
 
   useEffect(() => {
-    playerRef.current.audioEl.current.currentTime = lastPlayed.time
-    
+    playerRef.current.audioEl.current.currentTime = lastPlayed.time ? lastPlayed.time : 0
     
   }, []);
 
@@ -44,7 +43,7 @@ function ReactAudio(props) {
   function handlePause(e){
     props.setWarn(false)
     
-    const time = playerRef.current.audioEl.current.currentTime ? playerRef.current.audioEl.current.currentTime: ''
+    const time = playerRef.current.audioEl.current.currentTime
     const title = playerRef.current.props.title
     const src = playerRef.current.props.src
     const newAdd = {title:title,src:src,time:time}
