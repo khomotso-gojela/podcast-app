@@ -133,9 +133,6 @@ function App() {
         newEpisode.fav = true
         newSeason.fav = newSeason.episodes.some(item => item.fav == true)
 
-      
-        console.log(stripArray([...previous, Strip(newPrev)]))
-
         r = stripArray([...previous, Strip(newPrev)]);
         
         

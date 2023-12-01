@@ -79,7 +79,6 @@ function ReactAudio(props) {
           key={play.title}
           src={play.src}        
           controls
-          autoPlay
           onPlay={() => {props.setWarn(true)}}
           onPause={(e) => handlePause(e)}
           onListen={(e) => handleListen(e)}

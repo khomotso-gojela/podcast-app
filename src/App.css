@@ -70,25 +70,24 @@
   margin-top: 10vh;
 }
 
-/* .prev-container {
+.prev-container {
   margin-bottom: 20%;
-  display:grid;
-  grid-template-columns: auto auto auto;
-} */
+}
 
 .preview{
   border: 2px solid gray;
   /* border-radius: 2em; */
   /* margin: 10px; */
-  /* display: grid;
-  grid-template-columns: 40% 60%;
-  justify-items: start;
-  align-items: center; */
+  /* display: grid; */
+  /* grid-template-columns: 40% 60%; */
+  /* justify-items: start; */
+  /* align-items: center; */
 }
 
 .preview-image {
   width:180px;
   margin-left: 20px;
+  margin-top: 20px;
   border-radius: 1em;
 }
 

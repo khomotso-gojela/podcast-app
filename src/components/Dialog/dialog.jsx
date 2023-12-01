@@ -18,11 +18,18 @@ export default function Dialog(props) {
     useEffect(() => {
         
         props.all.map(data => {
+            
+            let newdata = ''
+            if (data.item) {
+                newdata = data.item
+            } else {
+                newdata = data
+            }
 
-            if (data.id == props.id) {
+            if (newdata.id == props.id) {
                 setShow(prev => { 
 
-                    const seasonEle = data.seasons.map((seas,index) => {
+                    const seasonEle = newdata.seasons.map((seas,index) => {
                         return (
 
                             <Pagination.Item onClick={() => handleSeason(seas.season)} key={index} >
@@ -33,7 +40,7 @@ export default function Dialog(props) {
 
                     let episodeEle = ''
 
-                    data.seasons.map(seas => {
+                    newdata.seasons.map(seas => {
                         
                         if (seas.season == season) {
                             setSeasonObj(seas)
@@ -43,7 +50,7 @@ export default function Dialog(props) {
                                         key={index} 
                                         epi={epi} 
                                         star={epi.fav}
-                                        setFav={() => props.setFav(data,season,index)} 
+                                        setFav={() => props.setFav(newdata,season,index)} 
                                         play={props.play}
                                     />
                                 )
@@ -53,7 +60,7 @@ export default function Dialog(props) {
 
                     return ({
                     ...prev,
-                    pod: data,
+                    pod: newdata,
                     seasons: seasonEle,
                     episodes: episodeEle
                     })
