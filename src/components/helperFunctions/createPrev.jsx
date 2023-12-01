@@ -1,5 +1,6 @@
 import { CCard, CCardImage, CCardBody, CCardText, CCardTitle } from '@coreui/react'
 import { CCol ,CRow } from '@coreui/react'
+import showGenres from './showGenres'
 
 export default function createPrev(allShows,open,obj) {
 
@@ -14,22 +15,19 @@ export default function createPrev(allShows,open,obj) {
         preview = allShows? allShows.map(prev => {        
             return (
                 
-                <CCol key={prev.id}>
+                <CCol className='prev-cont' key={prev.id}>
                     <CCard className="preview" onClick={() => open(prev.id, allShows)}  style={{ width: '18rem' }}>
-                        <CCardImage orientation="top" src={prev.image} />
+                        <CCardImage className="preview-image" orientation="top" src={prev.image} />
                         <CCardBody>
                         <CCardTitle>{prev.title}</CCardTitle>
                         <CCardText>
-                            Seasons: {prev.seasons.length}
-                        
+                            Seasons: {prev.seasons.length}                        
                         </CCardText>
                         <CCardText>
-                            Last updated: {new Date(prev.updated).toUTCString()}
-                            
+                            Last updated: {new Date(prev.updated).toUTCString()}                            
                         </CCardText>
                         <CCardText>
-                            Genre: {prev.genres? prev.genres.length : 'All'}
-                            
+                            Genres: {prev.genres? showGenres(prev.genres) : ''}                            
                         </CCardText>
                         </CCardBody>
                     </CCard>

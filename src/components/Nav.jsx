@@ -8,13 +8,13 @@ export default function Nav(props) {
 
     return (
         <CNavbar  className="nav-container">
-            <div onClick={() => props.changepg('Home')}>Home</div>
+            <button onClick={() => props.changepg('Home')}>Home</button>
 
-            <div onClick={() => props.changepg('All')}>All</div>
+            <button onClick={() => props.changepg('All')}>All</button>
 
-            <div onClick={() => props.changepg('Favourate')}>Favourate</div>
+            <button onClick={() => props.changepg('Favourate')}>Favourate</button>
 
-            <div className="filter">Filter</div>
+            <button className="filter">Filter</button>
 
             <div className="sort">
                 {/* <label htmlFor="sorting">sort: </label> */}

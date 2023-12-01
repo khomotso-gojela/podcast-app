@@ -3,7 +3,7 @@ import Episode from "./Episode"
 import Dheader from "./d-header"
 import { CModal, CModalHeader, CModalBody,CPlaceholder } from '@coreui/react'
 import Pagination from 'react-bootstrap/Pagination';
-
+import showGenres from "../helperFunctions/showGenres";
 
 export default function Dialog(props) {
     const [show,setShow] = useState({
@@ -12,6 +12,7 @@ export default function Dialog(props) {
         episodes: []
     })
     const [season,setSeason] = useState()
+    const [seasonObj,setSeasonObj] = useState(null)
     
     
     useEffect(() => {
@@ -37,6 +38,7 @@ export default function Dialog(props) {
                     data.seasons.map(seas => {
                         
                         if (seas.season == season) {
+                            setSeasonObj(seas)
                             episodeEle = seas.episodes.map((epi,index) => {
                                 return (
                                     <Episode 
@@ -77,17 +79,27 @@ export default function Dialog(props) {
             aria-labelledby="OptionalSizesExample1"
             >
             <CModalHeader>
-                <Dheader show={show.pod}/>
+                <div className='d-header'>
+                
+                <img className="dh-image" src={show.pod? show.pod.image : 'loading...'} alt="" />
+                
+                <div className="dh-text">
+                    <h2>{show.pod? show.pod.title : 'loading...'}</h2>
+                    
+                </div>
+                
+            </div>
             </CModalHeader>
 
             <CModalBody>
                 <Pagination className="d-seasons">{show.seasons? show.seasons : 'loading...'}</Pagination>
+                <div> | Season {season} | {show.episodes.length} episodes</div>
+                <hr />
                 {show.episodes? show.episodes :
                     <>
-                    <CPlaceholder xs={6} />
-                    <CPlaceholder className="w-75" />
-                    <CPlaceholder style={{ width: '30%'}} />
-                    
+                        <CPlaceholder xs={6} />
+                        <CPlaceholder className="w-75" />
+                        <CPlaceholder style={{ width: '30%'}} />
                     </>
                  }
             </CModalBody>
