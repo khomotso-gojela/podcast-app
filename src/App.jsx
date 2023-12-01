@@ -19,7 +19,7 @@ import FuseSearch from './components/fuse/fuseSearch';
 function App() {
   const [favPreviews,setFavPreviews] = useState([])
   const [sort,setSort] = useState('none')  
-  const [page,setPage] = useState('All')
+  const [page,setPage] = useState('Home')
   const [open,setOpen] = useState({
     open:false,
     id:undefined,
