@@ -29,7 +29,7 @@ export default function CarouselView(props) {
 
   return (
     <>
-    <h1>You might like...</h1>
+    <h5>You might like...</h5>
     <CCarousel controls indicators dark={false}>
       {items}
     </CCarousel>
