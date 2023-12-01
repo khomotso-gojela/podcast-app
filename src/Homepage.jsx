@@ -7,7 +7,15 @@ import { Routes, NavLink, Route } from 'react-router-dom'
 
 function Homepage() {
   const [session, setSession] = useState(null)
-  const [token,setToken] = useState(false)
+  const [token,setToken] = useState(() => {
+    if (sessionStorage.getItem('token')) {
+      
+      let data = JSON.parse(sessionStorage.getItem('token'))
+      return true
+    } else {
+      return false
+    }
+  })
 
   if (token) {
     sessionStorage.setItem('token',JSON.stringify(token))
